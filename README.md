@@ -29,3 +29,21 @@ FROM printer
 WHERE color = 'y'; 
 ```
 ---
+
+**5. Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.**
+```
+SELECT model, speed, hd
+FROM pc
+WHERE cd IN ('12x', '24x')
+         AND price < 600;
+```
+---
+
+**6. Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.**
+```
+SELECT DISTINCT product.maker, laptop.speed
+FROM product
+JOIN laptop ON product.model = laptop.model
+WHERE hd >= 10;
+```
+---
