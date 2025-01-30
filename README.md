@@ -6,4 +6,11 @@ WHERE price < 500;
 ```
 ---
 
+**2. Найдите производителей принтеров. Вывести: maker.**
+```
+SELECT DISTINCT maker
+FROM product
+WHERE type = 'Printer';   
+```
+---
 
