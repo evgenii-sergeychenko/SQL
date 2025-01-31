@@ -211,7 +211,7 @@ GROUP BY speed;
 ```
 ---
 
-**23. Найдите производителей, которые производили бы как ПК со скоростью не менее 750 МГц, так и ПК-блокноты со скоростью не менее 750 МГц. Вывести: Maker**
+**23. Найдите производителей, которые производили бы как ПК со скоростью не менее 750 МГц, так и ПК-блокноты со скоростью не менее 750 МГц. Вывести: Maker.**
 ```
 SELECT product.maker
 FROM product
@@ -224,5 +224,22 @@ SELECT product.maker
 FROM product
 JOIN laptop ON product.model = laptop.model
 WHERE laptop.speed >= 750;
+```
+---
+
+**24. Перечислите номера моделей любых типов, имеющих самую высокую цену по всей имеющейся в базе данных продукции.**
+```
+SELECT model
+FROM (SELECT model, price FROM pc
+      UNION
+      SELECT model, price FROM laptop
+      UNION
+      SELECT model, price FROM printer) AS S
+      WHERE S.price = (SELECT MAX(X.price)
+                       FROM (SELECT price FROM pc                         
+                             UNION
+                             SELECT price FROM laptop                           
+                             UNION
+                             SELECT price FROM printer) AS X);
 ```
 ---
