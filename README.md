@@ -99,3 +99,45 @@ WHERE price = (SELECT MAX(price)
                FROM printer);
 ```
 ---
+
+**11. Найдите среднюю скорость ПК.**
+```
+SELECT AVG(speed)
+FROM pc;
+```
+---
+
+**12. Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.**
+```
+SELECT AVG(speed)
+FROM laptop
+WHERE price > 1000;
+```
+---
+
+**13. Найдите среднюю скорость ПК, выпущенных производителем A.**
+```
+SELECT AVG(speed)
+FROM pc
+JOIN product ON pc.model = product.model
+WHERE product.maker = 'A';
+```
+---
+
+**14. Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий.**
+```
+SELECT ships.class, ships.name, classes.country
+FROM ships
+JOIN classes ON ships.class = classes.class
+WHERE numGuns >= 10;
+```
+---
+
+**15. Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD.**
+```
+SELECT hd
+FROM pc
+GROUP BY hd
+HAVING COUNT(hd) >= 2;
+```
+---
