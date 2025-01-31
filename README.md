@@ -141,3 +141,36 @@ GROUP BY hd
 HAVING COUNT(hd) >= 2;
 ```
 ---
+
+**16. Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.**
+```
+SELECT DISTINCT pc.model, pc1.model, pc.speed, pc.ram
+FROM pc
+JOIN pc AS pc1 ON pc.model > pc1.model
+               AND pc.model <> pc1.model
+               AND pc.speed = pc1.speed
+               AND pc.ram = pc1.ram;
+```
+---
+
+**17. Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed.**
+```
+SELECT DISTINCT product.type, laptop.model, laptop.speed
+FROM product
+JOIN laptop ON product.model = laptop.model
+WHERE laptop.speed < ALL (SELECT speed
+                          FROM pc);
+```
+---
+
+**18. Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price.**
+```
+SELECT DISTINCT product.maker, printer.price
+FROM product
+JOIN printer ON product.model = printer.model
+WHERE price = (SELECT MIN(price)
+               FROM printer
+               WHERE color ='y')
+AND color = 'y';
+```
+---
