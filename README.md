@@ -174,3 +174,21 @@ WHERE price = (SELECT MIN(price)
 AND color = 'y';
 ```
 ---
+
+**19. Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов. Вывести: maker, средний размер экрана.**
+```
+SELECT DISTINCT product.maker, AVG(screen)
+FROM product
+JOIN laptop ON product.model = laptop.model
+GROUP BY product.maker;
+```
+---
+
+**20. Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК..**
+```
+SELECT DISTINCT maker, COUNT(model)
+FROM product
+GROUP BY maker
+HAVING COUNT(model) >= 3;
+```
+---
