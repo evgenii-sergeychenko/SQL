@@ -47,3 +47,43 @@ JOIN laptop ON product.model = laptop.model
 WHERE hd >= 10;
 ```
 ---
+
+**7. Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).**
+```
+SELECT pc.model, pc.price
+FROM pc
+JOIN product ON pc.model = product.model
+WHERE product.maker = 'B'
+UNION
+SELECT laptop.model, laptop.price
+FROM laptop
+JOIN product ON laptop.model = product.model
+WHERE product.maker = 'B'
+UNION
+SELECT printer.model, printer.price
+FROM printer
+JOIN product ON printer.model = product.model
+WHERE product.maker = 'B';
+```
+---
+
+**8. Найдите производителя, выпускающего ПК, но не ПК-блокноты.**
+```
+SELECT maker
+FROM product
+WHERE type = 'PC'
+EXCEPT
+SELECT maker
+FROM product
+WHERE type = 'Laptop';
+```
+---
+
+**9. Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker.**
+```
+SELECT DISTINCT product.maker
+FROM product
+JOIN pc ON product.model = pc.model
+WHERE speed >= 450;
+```
+---
