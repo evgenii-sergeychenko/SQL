@@ -159,7 +159,8 @@ AND color = 'y';
 
 **19. Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов. Вывести: maker, средний размер экрана.**
 ```
-SELECT DISTINCT product.maker, AVG(screen)
+SELECT DISTINCT product.maker,
+                AVG(screen)
 FROM product
 JOIN laptop ON product.model = laptop.model
 GROUP BY product.maker;
@@ -167,7 +168,8 @@ GROUP BY product.maker;
 
 **20. Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.**
 ```
-SELECT DISTINCT maker, COUNT(model)
+SELECT DISTINCT maker,
+                COUNT(model)
 FROM product
 GROUP BY maker
 HAVING COUNT(model) >= 3;
@@ -175,7 +177,8 @@ HAVING COUNT(model) >= 3;
 
 **21. Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC. Вывести: maker, максимальная цен.**
 ```
-SELECT DISTINCT product.maker, MAX(price)
+SELECT DISTINCT product.maker,
+                MAX(price)
 FROM product
 JOIN pc ON product.model = pc.model
 GROUP BY product.maker;
@@ -183,7 +186,8 @@ GROUP BY product.maker;
 
 **22. Для каждого значения скорости ПК, превышающего 600 МГц, определите среднюю цену ПК с такой же скоростью. Вывести: speed, средняя цена.**
 ```
-SELECT speed, AVG(price)
+SELECT speed,
+       AVG(price)
 FROM pc
 WHERE speed > 600
 GROUP BY speed;
@@ -276,7 +280,8 @@ WHERE town_to = 'Moscow';
 
 **8. В какие города можно улететь из Парижа (Paris) и сколько времени это займёт?**
 ```
-SELECT town_to, TIMEDIFF(time_in, time_out) AS flight_time
+SELECT town_to,    
+       TIMEDIFF(time_in, time_out) AS flight_time
 FROM trip
 WHERE town_from = 'Paris';
 ```
@@ -294,4 +299,20 @@ WHERE town_from = 'Vladivostok';
 SELECT *
 FROM trip
 WHERE time_out BETWEEN '1900-01-01 10:00:00.000' AND '1900-01-01 14:00:00.000';
+```
+
+**11. Выведите пассажиров с самым длинным ФИО. Пробелы, дефисы и точки считаются частью имени.**
+```
+SELECT name
+FROM passenger
+WHERE LENGTH(name) = (SELECT MAX(LENGTH(name)) FROM passenger);
+```
+
+**12. Выведите идентификаторы всех рейсов и количество пассажиров на них. Обратите внимание, что на каких-то рейсах пассажиров может не быть. В этом случае выведите число "0".**
+```
+SELECT trip.id , 
+       COUNT(pass_in_trip.passenger) AS count 
+FROM trip  
+LEFT JOIN pass_in_trip ON trip.id = pass_in_trip.trip
+GROUP BY trip.id;
 ```
