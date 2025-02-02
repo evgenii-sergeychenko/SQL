@@ -242,8 +242,6 @@ FROM (SELECT model, price FROM pc
                              UNION
                              SELECT price FROM printer) AS X);
 ```
----
-
 
 ---
 ---
