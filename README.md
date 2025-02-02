@@ -243,3 +243,16 @@ FROM (SELECT model, price FROM pc
                              SELECT price FROM printer) AS X);
 ```
 ---
+
+
+---
+---
+
+### SQL Academy
+---
+
+**1. Вывести имена всех людей, которые есть в базе данных авиакомпаний.**
+```
+SELECT name
+FROM passenger;
+```
