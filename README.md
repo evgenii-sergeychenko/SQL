@@ -266,3 +266,32 @@ FROM company
 JOIN trip ON company.id = trip.company
 WHERE plane = 'Boeing';
 ```
+
+**7. Вывести все названия самолётов, на которых можно улететь в Москву (Moscow).**
+```
+SELECT DISTINCT plane
+FROM trip
+WHERE town_to = 'Moscow';
+```
+
+**8. В какие города можно улететь из Парижа (Paris) и сколько времени это займёт?**
+```
+SELECT town_to, TIMEDIFF(time_in, time_out) AS flight_time
+FROM trip
+WHERE town_from = 'Paris';
+```
+
+**9. Какие компании организуют перелеты из Владивостока (Vladivostok)?**
+```
+SELECT company.name
+FROM company
+JOIN trip ON company.id = trip.company
+WHERE town_from = 'Vladivostok';
+```
+
+**10. Вывести вылеты, совершенные с 10 ч. по 14 ч. 1 января 1900 г.**
+```
+SELECT *
+FROM trip
+WHERE time_out BETWEEN '1900-01-01 10:00:00.000' AND '1900-01-01 14:00:00.000';
+```
