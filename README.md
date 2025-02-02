@@ -254,3 +254,38 @@ FROM (SELECT model, price FROM pc
 SELECT name
 FROM passenger;
 ```
+
+**2. Вывести названия всеx авиакомпаний.**
+```
+SELECT name
+FROM company;
+```
+
+**3. Вывести все рейсы, совершенные из Москвы.**
+```
+SELECT *
+FROM trip
+WHERE town_from = 'Moscow';
+```
+
+**4. Вывести имена людей, которые заканчиваются на "man".**
+```
+SELECT name
+FROM passenger
+WHERE name LIKE '%man';
+```
+
+**5. Вывести количество рейсов, совершенных на TU-134.**
+```
+SELECT COUNT(*) AS count
+FROM trip
+WHERE plane = 'TU-134';
+```
+
+**6. Какие компании совершали перелеты на Boeing.**
+```
+SELECT DISTINCT name
+FROM company
+JOIN trip ON company.id = trip.company
+WHERE plane = 'Boeing';
+```
