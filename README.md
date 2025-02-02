@@ -3,7 +3,8 @@
 
 **1. Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. Вывести: model, speed и hd.**
 ```
-SELECT model, speed, hd  
+SELECT model,
+       speed, hd  
 FROM pc  
 WHERE price < 500;    
 ```
@@ -17,7 +18,9 @@ WHERE type = 'Printer';
 
 **3. Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.**
 ```
-SELECT model, ram, screen
+SELECT model,
+       ram,
+       screen
 FROM laptop
 WHERE price > 1000;   
 ```
@@ -31,7 +34,9 @@ WHERE color = 'y';
 
 **5. Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.**
 ```
-SELECT model, speed, hd
+SELECT model,
+       speed,
+       hd
 FROM pc
 WHERE cd IN ('12x', '24x')
          AND price < 600;
@@ -39,7 +44,8 @@ WHERE cd IN ('12x', '24x')
 
 **6. Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.**
 ```
-SELECT DISTINCT product.maker, laptop.speed
+SELECT DISTINCT product.maker,
+                laptop.speed
 FROM product
 JOIN laptop ON product.model = laptop.model
 WHERE hd >= 10;
@@ -47,17 +53,20 @@ WHERE hd >= 10;
 
 **7. Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).**
 ```
-SELECT pc.model, pc.price
+SELECT pc.model,
+       pc.price
 FROM pc
 JOIN product ON pc.model = product.model
 WHERE product.maker = 'B'
 UNION
-SELECT laptop.model, laptop.price
+SELECT laptop.model,
+       laptop.price
 FROM laptop
 JOIN product ON laptop.model = product.model
 WHERE product.maker = 'B'
 UNION
-SELECT printer.model, printer.price
+SELECT printer.model,
+       printer.price
 FROM printer
 JOIN product ON printer.model = product.model
 WHERE product.maker = 'B';
@@ -84,7 +93,8 @@ WHERE speed >= 450;
 
 **10. Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price.**
 ```
-SELECT model, price
+SELECT model,
+       price
 FROM printer
 WHERE price = (SELECT MAX(price)
                FROM printer);
@@ -113,7 +123,9 @@ WHERE product.maker = 'A';
 
 **14. Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий.**
 ```
-SELECT ships.class, ships.name, classes.country
+SELECT ships.class,
+       ships.name,
+       classes.country
 FROM ships
 JOIN classes ON ships.class = classes.class
 WHERE numGuns >= 10;
@@ -129,7 +141,10 @@ HAVING COUNT(hd) >= 2;
 
 **16. Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.**
 ```
-SELECT DISTINCT pc.model, pc1.model, pc.speed, pc.ram
+SELECT DISTINCT pc.model,
+                pc1.model,
+                pc.speed,
+                pc.ram
 FROM pc
 JOIN pc AS pc1 ON pc.model > pc1.model
                AND pc.model <> pc1.model
@@ -139,7 +154,9 @@ JOIN pc AS pc1 ON pc.model > pc1.model
 
 **17. Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed.**
 ```
-SELECT DISTINCT product.type, laptop.model, laptop.speed
+SELECT DISTINCT product.type,
+                laptop.model,
+                laptop.speed
 FROM product
 JOIN laptop ON product.model = laptop.model
 WHERE laptop.speed < ALL (SELECT speed
@@ -148,7 +165,8 @@ WHERE laptop.speed < ALL (SELECT speed
 
 **18. Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price.**
 ```
-SELECT DISTINCT product.maker, printer.price
+SELECT DISTINCT product.maker,
+                printer.price
 FROM product
 JOIN printer ON product.model = printer.model
 WHERE price = (SELECT MIN(price)
@@ -169,7 +187,7 @@ GROUP BY product.maker;
 **20. Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.**
 ```
 SELECT DISTINCT maker,
-                COUNT(model)
+       COUNT(model)
 FROM product
 GROUP BY maker
 HAVING COUNT(model) >= 3;
@@ -178,7 +196,7 @@ HAVING COUNT(model) >= 3;
 **21. Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC. Вывести: maker, максимальная цен.**
 ```
 SELECT DISTINCT product.maker,
-                MAX(price)
+       MAX(price)
 FROM product
 JOIN pc ON product.model = pc.model
 GROUP BY product.maker;
