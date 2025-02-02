@@ -316,3 +316,33 @@ FROM trip
 LEFT JOIN pass_in_trip ON trip.id = pass_in_trip.trip
 GROUP BY trip.id;
 ```
+
+**13. Вывести имена людей, у которых есть полный тёзка среди пассажиров.**
+```
+SELECT name
+FROM passenger
+GROUP BY name
+HAVING COUNT(name) > 1;
+```
+
+**14. В какие города летал Bruce Willi.**
+```
+SELECT town_to
+FROM trip
+JOIN pass_in_trip ON trip.id = pass_in_trip.trip
+JOIN passenger ON pass_in_trip.passenger = passenger.id
+WHERE name = 'Bruce Willis';
+```
+
+**15. Выведите идентификатор пассажира Стив Мартин (Steve Martin) и дату и время его прилёта в Лондон (London).**
+```
+SELECT passenger.id, 
+       trip.time_in
+FROM passenger
+JOIN pass_in_trip ON passenger.id = pass_in_trip.passenger
+JOIN trip ON Pass_in_trip.trip = trip.id
+WHERE passenger.name = 'Steve Martin' 
+      AND 
+      town_to = 'London';
+```
+
