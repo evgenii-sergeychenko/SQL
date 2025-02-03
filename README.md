@@ -364,3 +364,13 @@ WHERE passenger.name = 'Steve Martin'
       town_to = 'London';
 ```
 
+**16. Вывести отсортированный по количеству перелетов (по убыванию) и имени (по возрастанию) список пассажиров, совершивших хотя бы 1 полет.**
+```
+SELECT passenger.name,
+       COUNT(pass_in_trip.passenger) AS count
+FROM passenger
+JOIN pass_in_trip ON passenger.id = pass_in_trip.passenger
+GROUP BY name
+ORDER BY count DESC, name ASC;
+```
+
