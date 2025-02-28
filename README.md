@@ -5,12 +5,14 @@
 
 <details>
   <summary>Решение</summary>
+  
 ```
 SELECT model,
        speed, hd  
 FROM pc  
 WHERE price < 500;    
 ```
+
 </details>
        
 **2. Найдите производителей принтеров. Вывести: maker.**
